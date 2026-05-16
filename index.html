@@ -502,6 +502,24 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// ─── Mobile tap handling for cards ───
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    // If we're on mobile, toggle active class and prevent default if it's the first tap
+    if (window.innerWidth <= 768) {
+      const isActive = card.classList.contains('active');
+      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+      if (!isActive) card.classList.add('active');
+    }
+  });
+});
+
+// ─── Marquee touch support ───
+const txGrid = document.querySelector('.transactions-grid');
+if (txGrid) {
+  txGrid.addEventListener('touchstart', () => txGrid.style.animationPlayState = 'paused', {passive: true});
+  txGrid.addEventListener('touchend', () => txGrid.style.animationPlayState = 'running', {passive: true});
+}
 
 // ─── Filter transactions ───
 document.querySelectorAll('.filter-btn').forEach(btn => {
