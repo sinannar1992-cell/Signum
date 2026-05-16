@@ -502,6 +502,22 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ─── Mobile default active states ───
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth <= 768) {
+    const firstService = document.querySelector('.service-card');
+    if (firstService) firstService.classList.add('active');
+    
+    const firstProcess = document.querySelector('.process-step');
+    const pg = document.querySelector('.process-grid');
+    if (firstProcess && pg) {
+      firstProcess.classList.add('active');
+      pg.classList.add('step-active', 'active-1');
+    }
+  }
+});
+
 // ─── Mobile tap handling for cards ───
 document.querySelectorAll('.service-card').forEach(card => {
   card.addEventListener('click', (e) => {
