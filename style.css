@@ -65,7 +65,7 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
 /* ─── HERO ─── */
 .hero {
   min-height:100vh; display:flex; align-items:center; position:relative;
-  background: url('hero-bg.png') center top / cover no-repeat;
+  background: url('hero-bg.jpg') center top / cover no-repeat;
   overflow:hidden; padding-top:72px;
 }
 .hero::before {
