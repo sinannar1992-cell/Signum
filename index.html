@@ -572,23 +572,44 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // ─── Form submission ───
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
   const btn = document.getElementById('submitBtn');
+  
   btn.textContent = 'Wird gesendet...';
   btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = '✓ Anfrage erhalten';
-    btn.style.background = '#2d6a4f';
+
+  try {
+    const response = await fetch("https://formspree.io/f/mqakpnvp", {
+      method: "POST",
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      btn.textContent = '✓ Anfrage erhalten';
+      btn.style.background = '#2d6a4f';
+      btn.style.color = '#fff';
+      form.reset();
+    } else {
+      throw new Error();
+    }
+  } catch (error) {
+    btn.textContent = 'Fehler beim Senden';
+    btn.style.background = '#e63946';
     btn.style.color = '#fff';
+  } finally {
     setTimeout(() => {
       btn.textContent = 'Vertrauliche Erstbewertung anfordern';
       btn.style.background = '';
       btn.style.color = '';
       btn.disabled = false;
-      e.target.reset();
     }, 3000);
-  }, 1500);
+  }
 }
 
 // ─── Smooth scroll ───
