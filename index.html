@@ -514,6 +514,23 @@ document.querySelectorAll('.service-card').forEach(card => {
   });
 });
 
+// ─── Mobile tap handling for process steps ───
+const processGrid = document.querySelector('.process-grid');
+document.querySelectorAll('.process-step').forEach((step, index) => {
+  step.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      const isActive = step.classList.contains('active');
+      document.querySelectorAll('.process-step').forEach(s => s.classList.remove('active'));
+      processGrid.classList.remove('step-active', 'active-1', 'active-2', 'active-3', 'active-4');
+      
+      if (!isActive) {
+        step.classList.add('active');
+        processGrid.classList.add('step-active', `active-${index + 1}`);
+      }
+    }
+  });
+});
+
 // ─── Marquee touch support ───
 const txGrid = document.querySelector('.transactions-grid');
 if (txGrid) {

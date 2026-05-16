@@ -185,15 +185,16 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   height:1px; background:var(--gold); z-index:0;
   transition:width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.process-grid:has(.process-step:nth-child(1):hover)::after { width: 0%; }
-.process-grid:has(.process-step:nth-child(2):hover)::after { width: 25%; }
-.process-grid:has(.process-step:nth-child(3):hover)::after { width: 50%; }
-.process-grid:has(.process-step:nth-child(4):hover)::after { width: 76%; }
+.process-grid:has(.process-step:nth-child(1):hover)::after, .process-grid.active-1::after { width: 0%; }
+.process-grid:has(.process-step:nth-child(2):hover)::after, .process-grid.active-2::after { width: 25%; }
+.process-grid:has(.process-step:nth-child(3):hover)::after, .process-grid.active-3::after { width: 50%; }
+.process-grid:has(.process-step:nth-child(4):hover)::after, .process-grid.active-4::after { width: 76%; }
 
 .process-step { text-align:center; position:relative; z-index:1; transition:all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
-.process-grid:has(.process-step:hover) .process-step:not(:hover) { opacity:0.3; transform:scale(0.95); }
-.process-step:hover { opacity:1; transform:scale(1.05) translateY(-5px); z-index:2; }
+.process-grid:has(.process-step:hover) .process-step:not(:hover),
+.process-grid.step-active .process-step:not(.active) { opacity:0.3; transform:scale(0.95); }
+.process-step:hover, .process-step.active { opacity:1; transform:scale(1.05) translateY(-5px); z-index:2; }
 
 .step-number {
   width:64px; height:64px; border:2px solid var(--gold); border-radius:50%;
@@ -206,16 +207,16 @@ h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600;
   border:1px solid var(--gold); border-radius:50%; opacity:0; transform:scale(0.8);
   transition:all 0.4s ease; pointer-events:none;
 }
-.process-step:hover .step-number { background:var(--gold); color:var(--navy); box-shadow:0 0 20px rgba(201,169,110,0.4); }
-.process-step:hover .step-number::after {
+.process-step:hover .step-number, .process-step.active .step-number { background:var(--gold); color:var(--navy); box-shadow:0 0 20px rgba(201,169,110,0.4); }
+.process-step:hover .step-number::after, .process-step.active .step-number::after {
   animation:pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 @keyframes pulse-ring { 0% { transform:scale(1); opacity:0.6; } 100% { transform:scale(1.6); opacity:0; } }
 
 .process-step h4 { color:rgba(255,255,255,0.8); font-size:1.1rem; margin-bottom:.75rem; transition:color 0.3s; }
 .process-step p { color:rgba(255,255,255,0.5); font-size:.85rem; line-height:1.6; transition:color 0.3s; }
-.process-step:hover h4 { color:#ffffff; }
-.process-step:hover p { color:#ffffff; }
+.process-step:hover h4, .process-step.active h4 { color:#ffffff; }
+.process-step:hover p, .process-step.active p { color:#ffffff; }
 
 /* ─── TRANSACTIONS ─── */
 .transactions-wrapper {
